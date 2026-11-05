@@ -1,0 +1,26 @@
+mixin img(src, alt)
+  -
+    if (alt == null) {
+      throw new Error(`+img: alt is required for "${src}", pass '' for a decorative image`);
+    }
+  -
+    attributes.loading = attributes.loading === 'eager' ? false : attributes.loading || 'lazy';
+    const size = imageSizes && imageSizes[src.replace(/^(\.\/)?img\//, '').replace(/\.[a-z0-9]+$/i, '')];
+    if (size && attributes.width == null && attributes.height == null) {
+      attributes.width = size.width;
+      attributes.height = size.height;
+    }
+    if (attributes.sizes) {
+      if (/\.[a-z0-9]+$/i.test(src) || !size) {
+        throw new Error(`+img: sizes needs a PNG/JPEG/TIFF from src/img without an extension, got "${src}"`);
+      }
+      attributes.srcset = [...size.widths.map(width => `${src}-${width}w.webp ${width}w`), `${src}.webp ${size.width}w`].join(', ');
+    }
+    if (/\.(png|jpe?g|tiff)$/i.test(src)) {
+      throw new Error(`+img: "${src}" is not copied to dist, drop the extension to use its WebP copy`);
+    }
+  img(src=/\.[a-z0-9]+$/i.test(src) ? src : src + '.webp', alt=alt)&attributes(attributes)
+
+mixin svg(name)
+  svg(data-svg=name aria-hidden='true')&attributes(attributes)
+    use(href=`./img/sprites/sprite.svg#${name}`)

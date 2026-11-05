@@ -1,0 +1,26 @@
+// breakpoints
+$breakpoints: (
+  mobile: 480px,
+  mobile-wide: 640px,
+  tablet: 768px,
+  laptop: 1024px,
+  desktop-small: 1170px,
+  desktop: 1280px,
+  desktop-wide: 2210px
+);
+
+// fonts
+$font-main: "Roboto", Arial, Helvetica, sans-serif;
+
+// colors
+$accent: var(--color-1);
+$primary: var(--color-4);
+$secondary: var(--color-2);
+$background-accent: var(--color-3);
+$background: var(--color-5);
+$standard: var(--color-6);
+$background-img: var(--color-7);
+$active: rgb(from var(--color-3) r g b / 60%);
+$overlay: rgb(from var(--color-4) r g b / 60%);
+$play: rgb(from var(--color-6) r g b / 60%);
+$error: var(--color-8);

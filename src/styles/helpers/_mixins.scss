@@ -1,0 +1,99 @@
+@use "sass:map";
+@use "sass:math";
+@use "variables" as vars;
+
+// breakpoints
+@mixin down($name) {
+  @media (max-width: map.get(vars.$breakpoints, $name)) {
+    @content;
+  }
+}
+
+@mixin up($name) {
+  @media (min-width: map.get(vars.$breakpoints, $name)) {
+    @content;
+  }
+}
+
+// centered content column
+@mixin container {
+  width: 100%;
+  max-width: 1242px;
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: 16px;
+  padding-left: 16px;
+}
+
+// absolute position center
+@mixin position-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+// hover and keyboard focus
+@mixin hover-or-focus($color: vars.$primary) {
+  @media (any-hover: hover) {
+    &:hover {
+      @content;
+
+      @media (prefers-reduced-motion: reduce) {
+        scale: none;
+      }
+    }
+  }
+
+  &:focus-visible {
+    @content;
+
+    outline: 3px solid $color;
+    outline-offset: 3px;
+
+    @media (prefers-reduced-motion: reduce) {
+      scale: none;
+    }
+  }
+}
+
+// active
+@mixin active-state($color: vars.$active) {
+  @media (pointer: coarse) {
+    @content;
+
+    transition: background-color .3s ease;
+
+    &:active {
+      background-color: $color;
+    }
+  }
+}
+
+// windows high contrast mode
+@mixin forced-colors {
+  @media (forced-colors: active) {
+    @content;
+  }
+}
+
+// user asked for less motion
+@mixin reduced-motion {
+  @media (prefers-reduced-motion: reduce) {
+    @content;
+  }
+}
+
+// border forced colors
+@mixin forced-colors-outline($width: 1px) {
+  outline: $width solid transparent;
+  outline-offset: -$width;
+}
+
+// text overflow
+@mixin text-overflow($line) {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: $line;
+  overflow: hidden;
+}

@@ -1,0 +1,7 @@
+@use "../../../../styles/helpers/variables" as vars;
+
+.root {
+  font-family: vars.$font-main;
+  background-color: vars.$background;
+  color: vars.$primary;
+}
