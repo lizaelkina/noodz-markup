@@ -24,3 +24,8 @@ mixin img(src, alt)
 mixin svg(name)
   svg(data-svg=name aria-hidden='true')&attributes(attributes)
     use(href=`./img/sprites/sprite.svg#${name}`)
+
+mixin header-logo
+  div.logo&attributes(attributes)
+    +svg('logo').logo__header
+    span.visually-hidden Noodz

@@ -1,0 +1,12 @@
+@use "../../../styles/helpers/variables" as vars;
+
+.logo {
+  flex-shrink: 0;
+  width: fit-content;
+
+  &__header {
+    width: 234px;
+    height: 46px;
+    color: vars.$accent;
+  }
+}

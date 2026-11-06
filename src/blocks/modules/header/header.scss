@@ -1,0 +1,67 @@
+@use "../../../styles/helpers/variables" as vars;
+@use "../../../styles/helpers/mixins" as mix;
+@use "../../../styles/helpers/functions" as func;
+
+.header {
+  padding-top: 31px;
+  background-color: vars.$secondary;
+  background-image:
+    linear-gradient(to right, vars.$accent, vars.$accent),
+    linear-gradient(to right, vars.$accent, vars.$accent);
+  background-repeat: no-repeat;
+  background-size: 100% 1px;
+  background-position: top 31px center, bottom 8px center;
+
+  &__container {
+    @include mix.container;
+
+    max-width: 1472px;
+  }
+
+  &__content {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2px;
+    padding-left: 32px;
+    padding-right: 10px;
+    gap: 10px 24px;
+  }
+
+  &__label {
+    @include mix.forced-colors-outline;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 320px;
+    height: fit-content;
+    padding: 10px 21px 10px 31px;
+    background-color: vars.$accent;
+  }
+
+  &__text {
+    font-weight: 400;
+    font-size: func.rem(18);
+    line-height: 110%;
+    color: vars.$secondary;
+  }
+}
+
+@include mix.down(laptop) {
+  .header__content {
+    padding: 0;
+  }
+}
+
+@include mix.down(tablet) {
+  .header__content {
+    flex-direction: column;
+    margin-bottom: 10px;
+  }
+
+  .header__label {
+    max-width: none;
+    padding: 10px;
+  }
+}

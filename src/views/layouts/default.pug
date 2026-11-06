@@ -23,6 +23,7 @@ html(lang=site.lang)
   body.root(class=current.bodyClass || false)
     div.page
       block header
+        include ../../blocks/modules/header/header
       main.content
         block content
       block footer
