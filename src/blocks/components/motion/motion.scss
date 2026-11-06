@@ -1,0 +1,7 @@
+.motion {
+  --motion-state: running;
+
+  &.is-paused {
+    --motion-state: paused;
+  }
+}

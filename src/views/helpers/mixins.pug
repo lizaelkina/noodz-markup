@@ -29,3 +29,7 @@ mixin header-logo
   div.logo&attributes(attributes)
     +svg('logo').logo__header
     span.visually-hidden Noodz
+
+mixin pills(color, section)
+  each pos in ['top', 'left', 'bottom']
+    +svg('pill').pill(class=[`pill_${color}`, `pill_${section}-${pos}`])

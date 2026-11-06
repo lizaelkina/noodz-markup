@@ -1,0 +1,10 @@
+section(aria-labelledby='hero-heading').hero
+  div.hero__container.hero__container_text.motion.js-motion
+    +svg('ellipse').hero__ellipse
+    +pills('pink', 'hero')
+    h1#hero-heading.hero__title
+      | We&nbsp;are noodz Nothing to&nbsp;hide
+    p.hero__text(lang='nl')
+      | Eerlijke mondverzorging met een bite. #[span(lang='en') Keeping it&nbsp;real since 2021.]
+  div.hero__container
+    +img('./img/hero-img', 'A man is using chewing paste')(loading='eager' fetchpriority='high').hero__img

@@ -1,0 +1,108 @@
+@use "../../../styles/helpers/variables" as vars;
+@use "../../../styles/helpers/mixins" as mix;
+@use "../../../styles/helpers/functions" as func;
+
+.hero {
+  display: grid;
+  position: relative;
+  isolation: isolate;
+  background-color: vars.$secondary;
+
+  &__ellipse {
+    position: absolute;
+    z-index: -1;
+    top: clamp(0px, 8vw, 70px);
+    left: -10px;
+    width: 100%;
+    height: 71%;
+    color: vars.$accent;
+    rotate: -20deg;
+  }
+
+  &__container {
+    @include mix.container;
+
+    grid-column: 1;
+    grid-row: 1;
+    position: relative;
+    z-index: 1;
+    max-width: 1472px;
+
+    &_text {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+      z-index: 2;
+      min-height: clamp(280px, 60vw, 717px);
+      overflow: hidden;
+      padding: clamp(60px, 15vw, 167px) 16px clamp(45px, 15vw, 75px);
+      gap: 60px;
+    }
+  }
+
+  &__title {
+    z-index: 3;
+    width: 100%;
+    max-width: 875px;
+    font-weight: 400;
+    font-size: clamp(#{func.rem(34)}, 10vw, #{func.rem(105)});
+    line-height: 104%;
+    color: vars.$accent;
+    text-transform: uppercase;
+    text-align: center;
+  }
+
+  &__text {
+    z-index: 3;
+    width: 100%;
+    max-width: 358px;
+    font-weight: 400;
+    font-size: clamp(#{func.rem(18)}, 3vw, #{func.rem(24)});
+    line-height: 125%;
+    color: vars.$accent;
+    text-align: center;
+  }
+
+  &__img {
+    position: absolute;
+    top: 64.5%;
+    right: 6%;
+    rotate: -16.03deg;
+    width: 100%;
+    max-width: clamp(150px, 50vw - 330px, 390px);
+    aspect-ratio: 390 / 492;
+    border-radius: 49px;
+    background-color: vars.$background-img;
+  }
+}
+
+@include mix.down(laptop) {
+  .hero__img {
+    top: auto;
+    right: 5%;
+    bottom: 15%;
+    translate: 0 75%;
+    border-radius: 30px;
+  }
+}
+
+@include mix.down(tablet) {
+  .hero__img {
+    bottom: 4%;
+    max-width: 150px;
+  }
+}
+
+@include mix.down(mobile-wide) {
+  .hero__img {
+    max-width: 130px;
+  }
+}
+
+@include mix.down(mobile) {
+  .hero__img {
+    max-width: 90px;
+  }
+}

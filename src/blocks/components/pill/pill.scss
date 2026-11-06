@@ -1,0 +1,112 @@
+@use "../../../styles/helpers/variables" as vars;
+@use "../../../styles/helpers/mixins" as mix;
+
+.pill {
+  position: absolute;
+  pointer-events: none;
+  z-index: 2;
+
+  &_pink {
+    --pill-color-1: #{vars.$background-accent};
+    --pill-color-2: #{vars.$secondary};
+
+    @include mix.forced-colors {
+      --pill-color-2: #{Canvas};
+    }
+  }
+
+  &_hero-top {
+    top: -16px;
+    right: 28%;
+    width: 7.5%;
+    height: 18.3%;
+    rotate: -30deg;
+    animation: float-pill-top 10s ease-in-out infinite;
+    animation-play-state: var(--motion-state);
+    will-change: transform;
+  }
+
+  &_hero-left {
+    bottom: 46%;
+    left: 12.6%;
+    width: 9%;
+    height: 17.5%;
+    animation: float-pill-left 20s ease-in-out infinite 0.5s;
+    animation-play-state: var(--motion-state);
+    will-change: transform;
+  }
+
+  &_hero-bottom {
+    right: 16%;
+    bottom: 28%;
+    width: 10%;
+    height: 16%;
+    rotate: 45deg;
+    animation: float-pill-bottom 10s ease-in-out infinite 1s;
+    animation-play-state: var(--motion-state);
+    will-change: transform;
+  }
+}
+
+@include mix.down(desktop) {
+  .pill_hero-left {
+    bottom: 31%;
+    left: 10%;
+  }
+}
+
+@include mix.down(laptop) {
+  .pill_hero-left {
+    left: 5%;
+  }
+
+  .pill_hero-bottom {
+    right: 20%;
+  }
+}
+
+@include mix.down(mobile-wide) {
+  .pill_hero-top {
+    top: 0;
+  }
+
+  .pill_hero-left {
+    bottom: 33%;
+    left: 0;
+  }
+
+  .pill_hero-bottom {
+    bottom: 30%;
+  }
+}
+
+/* animation */
+@keyframes float-pill-top {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+
+  50% {
+    transform: rotate(-45deg);
+  }
+}
+
+@keyframes float-pill-left {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+
+  50% {
+    transform: translateY(90%) rotate(0deg);
+  }
+}
+
+@keyframes float-pill-bottom {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+
+  50% {
+    transform: rotate(-30deg);
+  }
+}
