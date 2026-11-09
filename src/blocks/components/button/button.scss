@@ -1,0 +1,39 @@
+@use "../../../styles/helpers/variables" as vars;
+@use "../../../styles/helpers/mixins" as mix;
+@use "../../../styles/helpers/functions" as func;
+
+.button {
+  @include mix.active-state;
+
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: func.rem(240);
+  border: 2px solid vars.$primary;
+  padding: 18.5px 20px;
+  color: vars.$primary;
+  background-color: vars.$accent;
+  background-image: linear-gradient(vars.$primary, vars.$primary);
+  background-repeat: no-repeat;
+  background-origin: border-box;
+  background-size: 0 100%;
+  transition: background-size .5s ease, background-color .3s ease;
+  cursor: pointer;
+
+  @include mix.hover-or-focus {
+    background-size: 100% 100%;
+
+    .button__text {
+      color: vars.$accent;
+    }
+  }
+
+  &__text {
+    transition: color .5s ease;
+    font-weight: 700;
+    font-size: func.rem(19);
+    line-height: 126%;
+    text-transform: uppercase;
+    color: vars.$primary;
+  }
+}

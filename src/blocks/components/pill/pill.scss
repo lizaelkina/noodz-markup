@@ -15,6 +15,15 @@
     }
   }
 
+  &_blue {
+    --pill-color-1: #{vars.$background};
+    --pill-color-2: #{vars.$primary};
+
+    @include mix.forced-colors {
+      --pill-color-2: #{Canvas};
+    }
+  }
+
   &_hero-top {
     top: -16px;
     right: 28%;
@@ -46,6 +55,29 @@
     animation-play-state: var(--motion-state);
     will-change: transform;
   }
+
+  &_about-top {
+    top: 4px;
+    right: -3.5%;
+    width: 26%;
+    height: 28%;
+  }
+
+  &_about-left {
+    top: 30px;
+    left: 12.6%;
+    width: 13.5%;
+    height: 31%;
+    rotate: 47deg;
+  }
+
+  &_about-bottom {
+    right: 21.5%;
+    bottom: 6%;
+    width: 14.5%;
+    height: 20%;
+    rotate: -32deg;
+  }
 }
 
 @include mix.down(desktop) {
@@ -62,6 +94,12 @@
 
   .pill_hero-bottom {
     right: 20%;
+  }
+
+  .pill_about-top {
+    top: 0;
+    right: 2%;
+    width: 14%;
   }
 }
 

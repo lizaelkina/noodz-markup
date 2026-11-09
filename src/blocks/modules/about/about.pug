@@ -1,0 +1,22 @@
+section(aria-labelledby='about-heading').about
+  h2#about-heading.visually-hidden About Noodz
+  div.about__container.about__container_img
+    div.about__img-wrapper
+      +pills('blue', 'about')
+      +img('./img/about-img', 'A couple is brushing their teeth')(
+        sizes='(max-width: 880px) calc(100vw - 32px), 848px').about__img
+      +stars
+  div.about__container
+    p.about__title(lang='nl')
+      | Het maken van de&nbsp;juiste keuzes zou eenvoudig moeten zijn.
+      | Toch is&nbsp;het juist heel lastig om&nbsp;&eacute;cht eerlijke producten te&nbsp;vinden.
+      | En waarom zijn we&nbsp;het eigenlijk gewoon gaan vinden dat je&nbsp;daar zelf naar moet zoeken?
+    div.about__text-wrapper
+      p.about__text(lang='nl')
+        | Tijd om&nbsp;dat te&nbsp;veranderen, vonden we&nbsp;bij Noodz.
+        | Daarom zijn we&nbsp;&eacute;cht eerlijk over onze mondverzorgingsproducten.
+        | We&nbsp;vertellen je&nbsp;precies waar we&nbsp;ze&nbsp;maken, wat er&nbsp;in&nbsp;zit en&nbsp;hoe we&nbsp;ze&nbsp;bij jou thuis bezorgen.
+        | Binnenkort lanceren we&nbsp;de&nbsp;eerste Noodz: tandpasta die je&nbsp;kunt kauwen.
+      p.about__text(lang='nl')
+        | Niets te&nbsp;verbergen. #[span(lang='en') Choose Noodz!]
+      +button('_ Keep me updated', '#subscribe').about__button

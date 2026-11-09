@@ -25,6 +25,10 @@ mixin svg(name)
   svg(data-svg=name aria-hidden='true')&attributes(attributes)
     use(href=`./img/sprites/sprite.svg#${name}`)
 
+mixin button(name, href)
+  a.button(href=href)&attributes(attributes)
+    span.button__text= name
+
 mixin header-logo
   div.logo&attributes(attributes)
     +svg('logo').logo__header
@@ -33,3 +37,8 @@ mixin header-logo
 mixin pills(color, section)
   each pos in ['top', 'left', 'bottom']
     +svg('pill').pill(class=[`pill_${color}`, `pill_${section}-${pos}`])
+
+mixin stars
+  div.stars.motion.js-motion(aria-hidden='true')
+    each _ in Array(6)
+      +svg('star').stars__svg

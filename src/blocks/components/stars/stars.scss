@@ -1,0 +1,70 @@
+@use "../../../styles/helpers/variables" as vars;
+@use "../../../styles/helpers/mixins" as mix;
+
+.stars {
+  display: grid;
+  position: absolute;
+  bottom: -9%;
+  left: 8%;
+  grid-template-columns: repeat(2, 40px);
+  gap: 24px;
+
+  &::after {
+    z-index: 2;
+    right: -10px;
+    bottom: -10px;
+    width: 60px;
+    height: 60px;
+  }
+
+  &__svg {
+    max-width: 100%;
+    aspect-ratio: 1;
+    color: vars.$accent;
+    animation: star-pulsate 1.2s linear infinite;
+    animation-play-state: var(--motion-state);
+    filter: drop-shadow(4px 4px 10px vars.$accent);
+
+    @include mix.forced-colors {
+      filter: none;
+    }
+  }
+}
+
+@include mix.down(tablet) {
+  .stars {
+    bottom: -6%;
+    grid-template-columns: repeat(2, 30px);
+    gap: 16px;
+
+    &::after {
+      right: -7px;
+      bottom: -7px;
+      width: 45px;
+      height: 45px;
+    }
+  }
+}
+
+@include mix.down(mobile) {
+  .stars {
+    bottom: -9%;
+    grid-template-columns: repeat(2, 20px);
+    gap: 10px;
+
+    &::after {
+      right: -5px;
+      bottom: -5px;
+      width: 30px;
+      height: 30px;
+    }
+  }
+}
+
+/* animation */
+@keyframes star-pulsate {
+  50% {
+    opacity: .95;
+    scale: 1.1;
+  }
+}
