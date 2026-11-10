@@ -1,0 +1,17 @@
+section(aria-labelledby='video-heading').video.js-video-section
+  h2#video-heading.visually-hidden A short promo video for our product
+  div(aria-live='polite' aria-atomic='true').visually-hidden.js-video-status
+  div.video__section
+    div.video__wrapper
+      div.video__container.js-video-container
+        +button-play-video.video__button.js-video-play
+        +img('./img/video-img', '')(aria-hidden='true'
+          sizes='(max-width: 1242px) calc(100vw - 32px), 1210px').video__img
+        div.video__controls
+          button(type='button' aria-label='Return video to page').video__expand.js-video-expand
+          div.video__close-wrapper
+            button(type='button' aria-label='Close video').video__close.js-video-close
+        iframe.video__iframe.js-video-iframe(
+          data-src='https://rutube.ru/play/embed/3202ca19ff9b57e7420392a5367ecef4/?skinColor=e1fd2c'
+          title='Short promo video'
+          allow='autoplay; fullscreen; clipboard-write')

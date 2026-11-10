@@ -42,3 +42,7 @@ mixin stars
   div.stars.motion.js-motion(aria-hidden='true')
     each _ in Array(6)
       +svg('star').stars__svg
+
+mixin button-play-video
+  button.play.motion.js-motion(type='button' aria-label='Play video')&attributes(attributes)
+    +svg('play').play__svg

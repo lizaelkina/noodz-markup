@@ -1,0 +1,49 @@
+@use "../../../styles/helpers/variables" as vars;
+@use "../../../styles/helpers/mixins" as mix;
+
+.play {
+  @include mix.active-state;
+
+  position: relative;
+  width: clamp(80px, 25vw, 320px);
+  border: 2px solid vars.$accent;
+  aspect-ratio: 1;
+  border-radius: 100%;
+  background-color: vars.$play;
+  cursor: pointer;
+
+  @include mix.hover-or-focus(vars.$background-accent) {
+    animation: play-hover 1s;
+    box-shadow: 0 0 0 3em transparent;
+  }
+
+  &__svg {
+    position: absolute;
+    top: 50%;
+    left: 55%;
+    width: 100%;
+    max-width: 30%;
+    transform: translate(-50%, -55%) rotate(.1deg) scale(1);
+    animation: play-pulsate 3s linear infinite;
+    animation-play-state: var(--motion-state);
+    aspect-ratio: 96 / 110;
+    color: vars.$accent;
+  }
+}
+
+/* animation */
+@keyframes play-pulsate {
+  0%, 100% {
+    transform: translate(-50%, -55%) rotate(.1deg) scale(1);
+  }
+
+  50% {
+    transform: translate(-50%, -55%) rotate(.1deg) scale(1.2);
+  }
+}
+
+@keyframes play-hover {
+  0% {
+    box-shadow: 0 0 0 0 vars.$accent;
+  }
+}

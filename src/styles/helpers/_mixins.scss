@@ -97,3 +97,36 @@
   -webkit-line-clamp: $line;
   overflow: hidden;
 }
+
+// cross button
+@mixin cross($size, $color) {
+  position: relative;
+  width: $size;
+  height: $size;
+  cursor: pointer;
+
+  &::before, &::after {
+    content: "";
+    display: block;
+    position: absolute;
+    top: calc(50% - 1px);
+    left: 0;
+    width: 100%;
+    height: 1.5px;
+    border-radius: 6px;
+    background-color: $color;
+
+    @media (forced-colors: active) {
+      forced-color-adjust: none;
+      background-color: currentcolor;
+    }
+  }
+
+  &::before {
+    transform: rotate(45deg);
+  }
+
+  &::after {
+    transform: rotate(-45deg);
+  }
+}
