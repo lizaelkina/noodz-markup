@@ -46,3 +46,16 @@ mixin stars
 mixin button-play-video
   button.play.motion.js-motion(type='button' aria-label='Play video')&attributes(attributes)
     +svg('play').play__svg
+
+mixin accordion-item(data)
+  - const panelId = `accordion-panel-${data.index + 1}`
+
+  li.accordion__item.js-accordion-item
+    div.accordion__container
+      h3
+        button.accordion__button.js-accordion-button(type='button' aria-expanded='false' aria-controls=panelId)
+          span.accordion__title(lang='nl')= data.title
+          +svg('plus').accordion__svg
+      div.accordion__wrapper(id=panelId)
+        div.accordion__inner
+          p.accordion__content(lang='nl')= data.text

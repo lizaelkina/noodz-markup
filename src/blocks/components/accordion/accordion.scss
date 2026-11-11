@@ -1,0 +1,109 @@
+@use "../../../styles/helpers/variables" as vars;
+@use "../../../styles/helpers/mixins" as mix;
+@use "../../../styles/helpers/functions" as func;
+
+.accordion {
+  &__item {
+    padding: clamp(24px, 8vw, 64px);
+    border-bottom: 1px solid vars.$primary;
+
+    &.is-open {
+      .accordion__wrapper {
+        grid-template-rows: 1fr;
+        visibility: visible;
+        transition: grid-template-rows .4s ease;
+      }
+
+      .accordion__svg {
+        rotate: 45deg;
+      }
+    }
+  }
+
+  &__container {
+    @include mix.container;
+  }
+
+  &__button {
+    @include mix.active-state;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    gap: 32px;
+    cursor: pointer;
+
+    @include mix.hover-or-focus {
+      .accordion__title {
+        color: vars.$secondary;
+      }
+
+      .accordion__svg {
+        color: vars.$secondary;
+      }
+    }
+  }
+
+  &__title {
+    display: block;
+    width: 100%;
+    max-width: 1010px;
+    font-weight: 700;
+    font-size: clamp(#{func.rem(24)}, 5vw, #{func.rem(48)});
+    line-height: 100%;
+    text-align: left;
+    color: vars.$primary;
+    transition: color .5s ease;
+  }
+
+  &__svg {
+    flex-shrink: 0;
+    width: clamp(#{func.rem(28)}, 5vw, #{func.rem(56)});
+    aspect-ratio: 1;
+    color: vars.$primary;
+    transition: rotate .4s ease, color .5s ease;
+  }
+
+  &__wrapper {
+    display: grid;
+    grid-template-rows: 0fr;
+    visibility: hidden;
+    transition: grid-template-rows .4s ease, visibility 0s linear .4s;
+  }
+
+  &__inner {
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  &__content {
+    display: block;
+    margin-top: 30px;
+    width: 82%;
+    font-weight: 400;
+    font-size: func.rem(18);
+    line-height: 130%;
+  }
+}
+
+@include mix.down(mobile-wide) {
+  .accordion__item {
+    padding-inline: 0;
+  }
+
+  .accordion__content {
+    width: 100%;
+  }
+}
+
+@include mix.down(mobile) {
+  .accordion__title {
+    font-size: func.rem(20);
+  }
+
+  .accordion__content {
+    margin-top: 20px;
+    font-size: func.rem(16);
+  }
+}

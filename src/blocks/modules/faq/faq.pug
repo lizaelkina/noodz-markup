@@ -1,0 +1,7 @@
+section(aria-labelledby='faq-heading').faq
+  div.faq__container
+    div.faq__title-wrapper
+      h2#faq-heading.faq__title FAQ
+    ul.accordion.js-accordion
+      each accordionItem, index in accordionList
+        +accordion-item({...accordionItem, index})

@@ -1,0 +1,38 @@
+@use "../../../styles/helpers/variables" as vars;
+@use "../../../styles/helpers/mixins" as mix;
+@use "../../../styles/helpers/functions" as func;
+
+.faq {
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+  background-color: vars.$accent;
+
+  &__container {
+    padding: clamp(60px, 10vw, 86px) 0 60px;
+  }
+
+  &__title-wrapper {
+    margin-bottom: 21px;
+    border-top: 1px solid vars.$primary;
+    border-bottom: 1px solid vars.$primary;
+  }
+
+  &__title {
+    @include mix.container;
+
+    margin-top: 22px;
+    margin-bottom: 22px;
+    font-weight: 300;
+    font-size: clamp(#{func.rem(50)}, 12vw, #{func.rem(159)});
+    line-height: 98%;
+    text-align: center;
+    color: vars.$primary;
+  }
+}
+
+@include mix.down(laptop) {
+  .faq {
+    gap: 0;
+  }
+}
