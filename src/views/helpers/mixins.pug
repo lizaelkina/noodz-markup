@@ -59,3 +59,11 @@ mixin accordion-item(data)
       div.accordion__wrapper(id=panelId)
         div.accordion__inner
           p.accordion__content(lang='nl')= data.text
+
+mixin ribbon(itemClass)
+  div.ribbons__item(class=itemClass)
+    div.ribbons__marquee(class=(itemClass === 'ribbons__item_back' && 'ribbons__marquee_reverse'))
+      each _ in Array(2)
+        div.ribbons__track
+          each _ in Array(8)
+            span.ribbons__text Get inspired

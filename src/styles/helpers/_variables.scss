@@ -23,4 +23,6 @@ $background-img: var(--color-7);
 $active: rgb(from var(--color-3) r g b / 60%);
 $overlay: rgb(from var(--color-4) r g b / 60%);
 $play: rgb(from var(--color-6) r g b / 60%);
+$gradient-x: linear-gradient(to right, transparent 0%, var(--color-1) 10%, var(--color-1) 90%, transparent 100%);
+$gradient-y: linear-gradient(to bottom, transparent 0%, var(--color-1) 10%, var(--color-1) 90%, transparent 100%);
 $error: var(--color-8);

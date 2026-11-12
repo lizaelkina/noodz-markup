@@ -29,6 +29,11 @@
     text-align: center;
     color: vars.$primary;
   }
+
+  &__ribbons {
+    margin-bottom: -165px;
+    z-index: 5;
+  }
 }
 
 @include mix.down(laptop) {

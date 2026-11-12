@@ -5,3 +5,8 @@ section(aria-labelledby='faq-heading').faq
     ul.accordion.js-accordion
       each accordionItem, index in accordionList
         +accordion-item({...accordionItem, index})
+  div.ribbons.faq__ribbons.motion.js-motion
+    span.visually-hidden Get inspired
+    div.ribbons__wrapper(aria-hidden='true')
+      +ribbon('ribbons__item_back')
+      +ribbon('ribbons__item_front')

@@ -1,0 +1,150 @@
+@use "../../../styles/helpers/variables" as vars;
+@use "../../../styles/helpers/mixins" as mix;
+@use "../../../styles/helpers/functions" as func;
+
+.ribbons {
+  position: relative;
+  overflow: clip;
+  padding: 24px 0;
+  border-top: 2px solid vars.$accent;
+  border-bottom: 2px solid vars.$accent;
+
+  &::before {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    max-width: 3000px;
+    margin: 0 auto;
+    inset: 24px 0;
+    border-top: 2px solid vars.$accent;
+    border-bottom: 2px solid vars.$accent;
+  }
+
+  &__wrapper {
+    display: grid;
+    position: relative;
+    z-index: 2;
+    max-width: 3000px;
+    min-height: clamp(115px, 20vw, 280px);
+    margin: 0 auto;
+    place-items: center;
+    clip-path: inset(-24px 0 0 0);
+  }
+
+  &__item {
+    position: absolute;
+    inset: auto;
+    width: 120%;
+    border-top: 3px solid vars.$accent;
+    border-bottom: 3px solid vars.$accent;
+    background-color: vars.$primary;
+    user-select: none;
+
+    &_back {
+      padding: 16px 0;
+      rotate: -5deg;
+    }
+
+    &_front {
+      top: 70px;
+      padding: 24px 0;
+      rotate: 5deg;
+    }
+  }
+
+  &__marquee {
+    display: flex;
+    width: max-content;
+    animation: ribbon-scroll-left 30s linear infinite;
+    animation-play-state: var(--motion-state);
+
+    &_reverse {
+      animation: ribbon-scroll-right 30s linear infinite;
+      animation-play-state: var(--motion-state);
+    }
+  }
+
+  &__track {
+    padding-right: 80px;
+    display: flex;
+    gap: 80px;
+  }
+
+  &__text {
+    font-weight: 400;
+    font-size: clamp(#{func.rem(18)}, 4.5vw, #{func.rem(64)});
+    line-height: 100%;
+    text-transform: uppercase;
+    white-space: nowrap;
+    color: vars.$accent;
+  }
+}
+
+@include mix.up(desktop-wide) {
+  .ribbons {
+    border-top-color: transparent;
+    border-bottom-color: transparent;
+    border-image: #{vars.$gradient-x} 1;
+
+    &::before {
+      mask-image: #{vars.$gradient-x};
+    }
+  }
+
+  .ribbons__wrapper {
+    mask-image: #{vars.$gradient-x}, #{vars.$gradient-y};
+    mask-composite: intersect;
+  }
+}
+
+@include mix.down(desktop-small) {
+  .ribbons__item {
+    padding: 16px;
+  }
+
+  .ribbons__item_back {
+    rotate: -9deg;
+  }
+
+  .ribbons__item_front {
+    top: auto;
+    rotate: 9deg;
+  }
+
+  .ribbons__track {
+    padding-right: 40px;
+    gap: 40px;
+  }
+}
+
+@include mix.down(mobile-wide) {
+  .ribbons__item {
+    padding: 10px;
+  }
+
+  .ribbons__track {
+    padding-right: 25px;
+    gap: 25px;
+  }
+}
+
+/* animation */
+@keyframes ribbon-scroll-left {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes ribbon-scroll-right {
+  0% {
+    transform: translateX(-50%);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
