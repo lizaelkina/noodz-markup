@@ -9,6 +9,13 @@
   }
 }
 
+// like down(), but in em: with a larger browser font the layout switches earlier
+@mixin down-em($name) {
+  @media (max-width: math.div(map.get(vars.$breakpoints, $name), 16px) * 1em) {
+    @content;
+  }
+}
+
 @mixin up($name) {
   @media (min-width: map.get(vars.$breakpoints, $name)) {
     @content;

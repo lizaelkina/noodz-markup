@@ -24,6 +24,15 @@
     }
   }
 
+  &_card {
+    --pill-color-1: #{vars.$background-accent};
+    --pill-color-2: #{vars.$primary};
+
+    @include mix.forced-colors {
+      --pill-color-2: #{Canvas};
+    }
+  }
+
   &_hero-top {
     top: -16px;
     right: 28%;
@@ -77,6 +86,30 @@
     width: 14.5%;
     height: 20%;
     rotate: -32deg;
+  }
+
+  &_card-left {
+    bottom: 25%;
+    left: 19%;
+    width: 35%;
+    height: 24%;
+    rotate: 4deg;
+  }
+
+  &_card-center {
+    top: 0;
+    right: 0;
+    width: 30%;
+    height: 20%;
+    rotate: -10deg;
+  }
+
+  &_card-right {
+    right: 0;
+    bottom: 26%;
+    width: 40%;
+    height: 22%;
+    rotate: 40deg;
   }
 }
 

@@ -1,0 +1,144 @@
+@use "../../../styles/helpers/variables" as vars;
+@use "../../../styles/helpers/mixins" as mix;
+@use "../../../styles/helpers/functions" as func;
+
+.card {
+  display: flex;
+  flex-shrink: 0;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+  width: 34cqw;
+  border: 3px solid vars.$primary;
+  aspect-ratio: 1;
+  background-color: vars.$accent;
+
+  &_left {
+    margin-left: 1cqw;
+    rotate: -18.5deg;
+  }
+
+  &_center {
+    margin-left: -5cqw;
+    width: 32cqw;
+    rotate: 16deg;
+  }
+
+  &_right {
+    margin-left: -5cqw;
+    rotate: -16.5deg;
+  }
+
+  &__title-wrapper {
+    @include mix.text-overflow(1);
+
+    align-self: center;
+    width: 100%;
+    border-top: 1px solid vars.$primary;
+    border-bottom: 1px solid vars.$primary;
+    overflow: clip;
+    overflow-clip-margin: 4px;
+  }
+
+  &__title {
+    font-weight: 300;
+    font-size: min(clamp(#{func.rem(80)}, 8cqw, #{func.rem(120)}), 9cqw);
+    line-height: 110%;
+    text-align: center;
+    text-transform: uppercase;
+    color: vars.$primary;
+    text-box: trim-both cap alphabetic;
+  }
+
+  &__button {
+    position: absolute;
+    z-index: 2;
+
+    &_center {
+      top: 0;
+      left: 10%;
+      max-width: func.rem(214);
+      padding: 18px;
+      rotate: -16deg;
+    }
+
+    &_right {
+      justify-content: center;
+      right: 20px;
+      bottom: 20px;
+      max-width: func.rem(236);
+      padding: 4px 10px;
+    }
+  }
+
+  &__button-text {
+    &_center {
+      font-weight: 400;
+      font-size: clamp(#{func.rem(16)}, 2vw, #{func.rem(19)});
+    }
+
+    &_right {
+      font-size: clamp(#{func.rem(16)}, 2.5vw, #{func.rem(26)});
+      text-transform: lowercase;
+      text-align: center;
+    }
+  }
+
+  &__img {
+    position: absolute;
+    width: 72%;
+    aspect-ratio: 716 / 229;
+    mask-size: cover;
+    mask-repeat: no-repeat;
+    mask-position: center;
+
+    &_left {
+      top: 0;
+      right: 0;
+      mask-image: url("../img/card-mask-left.webp");
+    }
+
+    &_center {
+      right: 0;
+      bottom: 0;
+      mask-image: url("../img/card-mask-center.webp");
+    }
+
+    &_right {
+      top: 0;
+      left: 0;
+      mask-image: url("../img/card-mask-right.webp");
+    }
+  }
+}
+
+@include mix.down(laptop) {
+  .card {
+    &__title {
+      font-size: min(clamp(#{func.rem(50)}, 7cqw, #{func.rem(70)}), 9cqw);
+    }
+
+    &__button {
+      max-width: fit-content;
+
+      &_center {
+        padding: 10px;
+      }
+
+      &_right {
+        right: 10px;
+        bottom: 10px;
+      }
+    }
+  }
+}
+
+@include mix.down-em(tablet) {
+  .card {
+    width: min(100%, max(60cqw, #{func.rem(176)}));
+
+    &__title {
+      font-size: clamp(#{func.rem(40)}, 11cqw, #{func.rem(80)});
+    }
+  }
+}

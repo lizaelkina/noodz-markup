@@ -67,3 +67,25 @@ mixin ribbon(itemClass)
         div.ribbons__track
           each _ in Array(8)
             span.ribbons__text Get inspired
+
+mixin card(data)
+  -
+    const mod = ['left', 'center', 'right'][data.index];
+    if (!mod) {
+      throw new Error(`+card: the block has exactly 3 cards, got index ${data.index}`);
+    }
+
+  li.card(class=[`card_${mod}`])&attributes(attributes)
+    div.card__title-wrapper
+      p.card__title= data.title
+    +svg('pill').pill.pill_card(class=`pill_card-${mod}`)
+    if data.linkTitle
+      a.button.card__button(
+        class=`card__button_${mod}`
+        href=data.linkHref
+        target='_blank'
+        rel='noopener'
+        aria-label=`${data.linkTitle} (opens in new tab)`)
+        span.button__text.card__button-text(class=`card__button-text_${mod}`)= data.linkTitle
+    if data.img
+      +img(data.img, '').card__img(class=`card__img_${mod}` aria-hidden='true')

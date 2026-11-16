@@ -1,0 +1,60 @@
+@use "../../../styles/helpers/variables" as vars;
+@use "../../../styles/helpers/mixins" as mix;
+
+.we {
+  display: grid;
+  margin-bottom: 51px;
+
+  &__container {
+    --we-cell: 240px;
+
+    background-image:
+      linear-gradient(to right, vars.$secondary 1.5px, transparent 1.5px),
+      linear-gradient(to bottom, vars.$secondary 1.5px, transparent 1.5px);
+    background-repeat: repeat;
+    background-size: var(--we-cell) var(--we-cell);
+    background-position: calc(50% + var(--we-cell) / 2) 0, top;
+  }
+
+  &__wrapper {
+    @include mix.container;
+
+    max-width: 1500px;
+    overflow: hidden;
+    padding: 0;
+    container-type: inline-size;
+  }
+
+  &__cards {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 144px;
+    padding: 11cqw 6cqw 31cqw;
+  }
+}
+
+@include mix.down(laptop) {
+  .we {
+    margin-bottom: 10px;
+
+    &__container {
+      --we-cell: 172px;
+    }
+  }
+}
+
+@include mix.down-em(tablet) {
+  .we {
+    &__cards {
+      margin-top: 180px;
+      flex-direction: column;
+    }
+  }
+}
+
+@include mix.down(mobile) {
+  .we__container {
+    --we-cell: 120px;
+  }
+}

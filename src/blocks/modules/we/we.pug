@@ -1,0 +1,7 @@
+section(aria-labelledby='we-heading').we
+  h2#we-heading.visually-hidden We are Noodz
+  div.we__container
+    div.we__wrapper
+      ul.we__cards
+        each card, index in cards
+          +card({...card, index})
