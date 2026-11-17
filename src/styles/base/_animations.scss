@@ -1,0 +1,18 @@
+// used by: stars, smile
+@keyframes star-blink {
+  0% {
+    transform: scale(0, 0) rotate(0deg);
+  }
+
+  20% {
+    transform: scale(1, 1) rotate(80deg);
+  }
+
+  40% {
+    transform: scale(0, 0) rotate(160deg);
+  }
+
+  100% {
+    transform: scale(0, 0) rotate(160deg);
+  }
+}

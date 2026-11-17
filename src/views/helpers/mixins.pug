@@ -43,6 +43,17 @@ mixin stars
     each _ in Array(6)
       +svg('star').stars__svg
 
+mixin smile
+  div.smile.motion.js-smile.js-motion(aria-hidden='true')&attributes(attributes)
+    +img('./img/smile-face.svg', '')(width='382' height='392').smile__face
+    +img('./img/smile-tongue-shadow.svg', '').smile__tongue.js-smile-tongue
+    each bubble in ['left-top', 'left-bottom', 'right', 'left-top']
+      span.smile__bubble
+        +img(`./img/bubble-${bubble}.svg`, '').smile__bubble-img
+        each _ in Array(6)
+          span.smile__drop
+    +img('./img/smile-mouth-star.svg', '').smile__mouth-star
+
 mixin button-play-video
   button.play.motion.js-motion(type='button' aria-label='Play video')&attributes(attributes)
     +svg('play').play__svg

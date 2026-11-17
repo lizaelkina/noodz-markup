@@ -1,0 +1,254 @@
+@use "sass:list";
+@use "sass:map";
+@use "sass:math";
+@use "../../../styles/helpers/variables" as vars;
+@use "../../../styles/helpers/mixins" as mix;
+
+$smile-frame: 382;
+
+@function u($value) {
+  @return math.div($value, $smile-frame) * 100cqw;
+}
+
+// negative delay: the bubble is already in flight when the page opens
+$smile-bubbles: (
+  (x: 112, y: 120, size: 16, dx: -10, dy: -70, duration: 3.2s, delay: 0s),
+  (x: 128, y: 128, size: 20, dx: 6, dy: -88, duration: 3.8s, delay: -1.6s),
+  (x: 286, y: 140, size: 23, dx: 8, dy: -84, duration: 3.6s, delay: -0.8s),
+  (x: 298, y: 150, size: 16, dx: 16, dy: -60, duration: 3s, delay: -2.4s)
+);
+
+// drop flight in % of the drop size
+$smile-drops: (
+  (-260%, -220%),
+  (0%, -340%),
+  (260%, -220%),
+  (300%, 120%),
+  (-300%, 120%),
+  (0%, 280%)
+);
+
+.smile {
+  position: relative;
+  width: 100%;
+  max-width: 382px;
+  aspect-ratio: 382 / 392;
+  container-type: inline-size;
+
+  &::before {
+    @include mix.sparkle(2s);
+
+    z-index: 1;
+    top: u(91.6);
+    left: u(235.9);
+    width: u(75);
+    height: u(75);
+  }
+
+  &::after {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 36%;
+    right: -33%;
+    width: 14%;
+    aspect-ratio: 1;
+    background-image: url("../img/smile-star.svg");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+  }
+
+  &__face {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  &__tongue {
+    position: absolute;
+    top: u(146.102);
+    left: u(153.704);
+    width: u(83);
+    height: u(109);
+    transform-origin: 50% 0;
+  }
+
+  // rotation around a point below the bubble gives a soft side-to-side sway
+  &__bubble {
+    position: absolute;
+    transform-origin: 50% 400%;
+    animation:
+      smile-bubble-rise var(--smile-bubble-duration) ease-in-out var(--smile-bubble-delay) infinite,
+      smile-bubble-sway 1.6s ease-in-out var(--smile-bubble-delay) infinite alternate;
+    animation-play-state: var(--motion-state);
+
+    @for $i from 1 through list.length($smile-bubbles) {
+      $bubble: list.nth($smile-bubbles, $i);
+      $size: map.get($bubble, size);
+
+      &:nth-of-type(#{$i}) {
+        --smile-bubble-dx: #{u(map.get($bubble, dx))};
+        --smile-bubble-dy: #{u(map.get($bubble, dy))};
+        --smile-bubble-duration: #{map.get($bubble, duration)};
+        --smile-bubble-delay: #{map.get($bubble, delay)};
+
+        top: u(map.get($bubble, y) - math.div($size, 2));
+        left: u(map.get($bubble, x) - math.div($size, 2));
+        width: u($size);
+        height: u($size);
+      }
+    }
+  }
+
+  &__bubble-img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    scale: 0;
+    animation: smile-bubble-pop var(--smile-bubble-duration) ease-out var(--smile-bubble-delay) infinite;
+    animation-play-state: var(--motion-state);
+  }
+
+  &__drop {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: u(4);
+    height: u(4);
+    margin: u(-2) 0 0 u(-2);
+    border-radius: 50%;
+    background-color: vars.$secondary;
+    opacity: 0;
+    animation: smile-drop-splash var(--smile-bubble-duration) ease-out var(--smile-bubble-delay) infinite;
+    animation-play-state: var(--motion-state);
+
+    @include mix.forced-colors {
+      forced-color-adjust: none;
+      background-color: CanvasText;
+    }
+
+    @for $i from 1 through list.length($smile-drops) {
+      $drop: list.nth($smile-drops, $i);
+
+      &:nth-of-type(#{$i}) {
+        --smile-drop-tx: #{list.nth($drop, 1)};
+        --smile-drop-ty: #{list.nth($drop, 2)};
+      }
+    }
+  }
+
+  &__mouth-star {
+    position: absolute;
+    top: u(104.102);
+    left: u(248.424);
+    width: u(50);
+    height: u(50);
+  }
+
+  &.is-teasing .smile__tongue {
+    animation: smile-tease 0.9s ease-in-out forwards;
+  }
+
+  &.is-calming .smile__tongue {
+    animation: smile-calm 0.3s ease-out;
+  }
+}
+
+@include mix.reduced-motion {
+  .smile__bubble {
+    display: none;
+  }
+}
+
+/* animation */
+@keyframes smile-tease {
+  0% {
+    transform: none;
+  }
+
+  20% {
+    transform: scaleY(1.3) rotate(-3deg);
+  }
+
+  40% {
+    transform: none;
+  }
+
+  65% {
+    transform: scaleY(1.35) rotate(3deg);
+  }
+
+  100% {
+    transform: scaleY(1.3);
+  }
+}
+
+@keyframes smile-calm {
+  from {
+    transform: scaleY(1.3);
+  }
+
+  to {
+    transform: none;
+  }
+}
+
+@keyframes smile-bubble-rise {
+  0% {
+    translate: 0 0;
+  }
+
+  85%, 100% {
+    translate: var(--smile-bubble-dx) var(--smile-bubble-dy);
+  }
+}
+
+@keyframes smile-bubble-sway {
+  from {
+    rotate: -6deg;
+  }
+
+  to {
+    rotate: 6deg;
+  }
+}
+
+@keyframes smile-bubble-pop {
+  0% {
+    scale: 0;
+    opacity: 1;
+  }
+
+  12%, 78% {
+    scale: 1;
+    opacity: 1;
+  }
+
+  84% {
+    scale: 1.35;
+    opacity: 1;
+  }
+
+  85%, 100% {
+    scale: 1.4;
+    opacity: 0;
+  }
+}
+
+@keyframes smile-drop-splash {
+  0%, 84% {
+    transform: none;
+    opacity: 0;
+  }
+
+  85% {
+    transform: none;
+    opacity: 1;
+  }
+
+  100% {
+    transform: translate(var(--smile-drop-tx), var(--smile-drop-ty)) scale(0);
+    opacity: 0;
+  }
+}
