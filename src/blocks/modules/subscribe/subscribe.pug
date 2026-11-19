@@ -1,0 +1,21 @@
+section#subscribe(aria-labelledby='subscribe-heading').subscribe
+  div.subscribe__container
+    h2#subscribe-heading.subscribe__title(lang='nl')
+      | Hou me&nbsp;op de&nbsp;hoogte
+    form.subscribe__form.js-subscribe-form
+      div.subscribe__wrapper
+        label.subscribe__label(for='subscribe-email' lang='nl')
+          | Meld me aan
+        input.subscribe__input(
+          id='subscribe-email'
+          required
+          type='email'
+          name='subscribeEmail'
+          autocomplete='email'
+          placeholder=' ')
+      button(type='submit' aria-label='Subscribe').subscribe__button.motion.js-motion.js-subscribe-submit
+        +svg('submit').subscribe__svg
+      div(aria-hidden='true').subscribe__message.js-subscribe-message
+        span(lang='nl').subscribe__message-text
+          | Je bent succesvol geabonneerd!
+      span.visually-hidden.js-subscribe-status(role='status' lang='nl')

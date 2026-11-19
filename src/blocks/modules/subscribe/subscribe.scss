@@ -1,0 +1,243 @@
+@use "../../../styles/helpers/variables" as vars;
+@use "../../../styles/helpers/mixins" as mix;
+@use "../../../styles/helpers/functions" as func;
+
+.subscribe {
+  padding-top: clamp(60px, 10vw, 87px);
+  padding-bottom: clamp(60px, 10vw, 127px);
+  background-color: transparent;
+
+  &__container {
+    @include mix.container;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 26px;
+  }
+
+  &__title {
+    width: 100%;
+    max-width: 5.5em;
+    font-weight: 400;
+    font-size: min(clamp(#{func.rem(45)}, 10vw, #{func.rem(97)}), 15vw);
+    line-height: 115%;
+    text-transform: uppercase;
+    text-align: center;
+    color: vars.$secondary;
+  }
+
+  &__form {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    width: 100%;
+    max-width: 560px;
+    padding-bottom: 11px;
+    border-bottom: 2px solid vars.$secondary;
+    gap: 16px;
+    transition: border-color .5s ease;
+
+    @include mix.hover-or-focus {
+      border-color: vars.$primary;
+    }
+
+    &:has(.subscribe__input:user-invalid) {
+      border-color: vars.$error;
+    }
+  }
+
+  &__wrapper {
+    display: grid;
+    flex-grow: 1;
+    min-width: 0;
+  }
+
+  &__label {
+    @include mix.text-overflow(1);
+
+    grid-column: 1;
+    grid-row: 1;
+    font-weight: 400;
+    font-size: func.rem(16);
+    line-height: 150%;
+    text-transform: uppercase;
+    color: vars.$secondary;
+    transform: translateY(0);
+    transition: transform .5s ease;
+
+    &:has(+ .subscribe__input:focus), &:has(+ .subscribe__input:not(:placeholder-shown)) {
+      font-size: func.rem(13);
+      transform: translateY(-25px);
+    }
+  }
+
+  &__input {
+    @include mix.active-state;
+
+    grid-column: 1;
+    grid-row: 1;
+    width: 100%;
+    min-width: 0;
+    border: none;
+    background-color: transparent;
+    font-weight: 400;
+    font-size: func.rem(18);
+    line-height: 120%;
+    color: vars.$primary;
+
+    &:-webkit-autofill, &:-webkit-autofill:focus, &:-webkit-autofill:active {
+      box-shadow: 0 0 0 1000px vars.$background inset;
+      -webkit-text-fill-color: vars.$primary;
+    }
+
+    &:focus-visible {
+      outline: 3px solid vars.$primary;
+      outline-offset: 3px;
+
+      &:user-invalid {
+        outline-color: vars.$error;
+      }
+    }
+  }
+
+  &__button {
+    @include mix.active-state;
+
+    flex-shrink: 0;
+    margin-right: 1px;
+    position: relative;
+    width: 27px;
+    height: 24px;
+    cursor: pointer;
+
+    &::after {
+      visibility: hidden;
+      opacity: 0;
+    }
+
+    @include mix.hover-or-focus {
+      .subscribe__svg {
+        color: vars.$primary;
+      }
+    }
+
+    &[aria-disabled="true"] {
+      cursor: progress;
+
+      .subscribe__svg {
+        visibility: hidden;
+        opacity: 0;
+      }
+
+      &::after {
+        @include mix.position-center;
+
+        content: "";
+        display: inline-block;
+        width: 24px;
+        height: 24px;
+        border: 3px solid vars.$secondary;
+        border-bottom-color: transparent;
+        border-radius: 50%;
+        transition: visibility .2s ease, opacity .2s ease;
+        animation: submit-loading 1s linear infinite;
+        visibility: visible;
+        opacity: 1;
+
+        @include mix.forced-colors {
+          border-color: CanvasText;
+          border-bottom-color: Canvas;
+        }
+      }
+    }
+  }
+
+  &__svg {
+    width: 100%;
+    height: 100%;
+    color: vars.$secondary;
+    transition: color .5s ease, visibility .2s ease, opacity .2s ease;
+    animation: submit-pulsate 3s linear infinite;
+    animation-play-state: var(--motion-state);
+    visibility: visible;
+    opacity: 1;
+  }
+
+  &__message {
+    @include mix.forced-colors-outline;
+
+    position: absolute;
+    top: calc(100% + 12px);
+    right: 0;
+    padding: 12px;
+    transition: scale .3s cubic-bezier(.36, 0, .66, -.56), opacity .3s ease-in, visibility .3s;
+    transform-origin: top right;
+    background-color: vars.$background-accent;
+    scale: 0;
+    visibility: hidden;
+    opacity: 0;
+
+    &.is-success {
+      transition: scale .45s cubic-bezier(.34, 1.56, .64, 1), opacity .2s ease-out, visibility 0s;
+      scale: 1;
+      visibility: visible;
+      opacity: 1;
+
+      .subscribe__message-text {
+        transition: opacity .3s ease-out .2s, translate .3s ease-out .2s;
+        translate: 0 0;
+        opacity: 1;
+      }
+    }
+  }
+
+  &__message-text {
+    transition: opacity .15s ease-in, translate .15s ease-in;
+    font-weight: 700;
+    font-size: clamp(#{func.rem(16)}, 2vw, #{func.rem(20)});
+    line-height: 120%;
+    color: vars.$primary;
+    translate: 0 6px;
+    opacity: 0;
+  }
+}
+
+/* animation */
+@keyframes submit-pulsate {
+  0%, 100% {
+    transform: rotate(.1deg) scale(1);
+  }
+
+  50% {
+    transform: rotate(.1deg) scale(1.2);
+  }
+}
+
+@keyframes submit-loading {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+@include mix.reduced-motion {
+  .subscribe__button[aria-disabled="true"] {
+    &::after {
+      display: none;
+    }
+
+    .subscribe__svg {
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+
+  .subscribe__message, .subscribe__message.is-success {
+    scale: 1;
+  }
+}
