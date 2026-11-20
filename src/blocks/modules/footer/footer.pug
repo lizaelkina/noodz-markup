@@ -1,0 +1,18 @@
+footer.footer
+  div.footer__container
+    div.footer__top
+      each column in footerColumns
+        div.footer__column
+          h2.footer__title(lang=column.titleLang)= column.title
+          p.footer__text(lang='nl')
+            |#{column.text}
+            |
+            +link(column.email, `mailto:${column.email}`)
+    +svg('logo').footer__logo
+    +scrolling.footer__scrolling
+    div.footer__bottom
+      div
+        +link('Privacyverklaring', 'index.html')(lang='nl')
+      div
+        +link('Disclaimer', 'index.html')
+      span.footer__text.footer__text_small We Cut the Code 🤘🏽

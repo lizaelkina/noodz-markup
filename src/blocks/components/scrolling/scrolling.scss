@@ -1,0 +1,53 @@
+@use "../../../styles/helpers/variables" as vars;
+@use "../../../styles/helpers/functions" as func;
+
+.scrolling {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 320px;
+  overflow: clip;
+  padding: 15px 0 11px 12px;
+  background-color: vars.$accent;
+
+  &__track {
+    display: flex;
+    flex-shrink: 0;
+    animation: scrolling 10s linear infinite;
+    animation-play-state: var(--motion-state);
+  }
+
+  &__item {
+    display: flex;
+    padding-right: 11px;
+    gap: 11px;
+  }
+
+  &__text {
+    width: 100%;
+    min-width: 145px;
+    font-weight: 400;
+    font-size: func.rem(18);
+    line-height: 100%;
+    white-space: nowrap;
+    color: vars.$primary;
+  }
+
+  &__svg {
+    margin-top: -2px;
+    width: 16px;
+    height: 16px;
+    color: vars.$standard;
+  }
+}
+
+/* animation */
+@keyframes scrolling {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}

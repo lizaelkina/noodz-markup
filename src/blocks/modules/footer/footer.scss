@@ -1,0 +1,99 @@
+@use "../../../styles/helpers/variables" as vars;
+@use "../../../styles/helpers/mixins" as mix;
+@use "../../../styles/helpers/functions" as func;
+
+.footer {
+  padding: clamp(60px, 10vw, 128px) clamp(80px, 8vw, 115px);
+  color: vars.$accent;
+  background-color: vars.$primary;
+  background-image: linear-gradient(to bottom, vars.$accent, vars.$accent);
+  background-repeat: no-repeat;
+  background-size: 1px 100%;
+  background-position: center;
+
+  &__container {
+    @include mix.container;
+
+    display: flex;
+    flex-direction: column;
+    max-width: 1210px;
+    padding: 0;
+    gap: 33px;
+  }
+
+  &__top {
+    display: flex;
+    justify-content: space-between;
+    gap: 34px 80px;
+  }
+
+  &__column {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    width: 100%;
+    max-width: 393px;
+  }
+
+  &__title {
+    font-weight: 400;
+    font-size: clamp(#{func.rem(24)}, 5vw, #{func.rem(42)});
+    line-height: 114%;
+    text-transform: uppercase;
+  }
+
+  &__text {
+    width: 100%;
+    max-width: func.rem(240);
+    font-weight: 400;
+    font-size: func.rem(16);
+    line-height: 225%;
+
+    &_small {
+      line-height: 150%;
+    }
+  }
+
+  &__logo {
+    margin-top: clamp(32px, 7vw, 80px);
+    width: 100%;
+    height: auto;
+    aspect-ratio: 234 / 46;
+  }
+
+  &__scrolling {
+    align-self: flex-end;
+  }
+
+  &__bottom {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: center;
+    gap: 18px 24px;
+  }
+}
+
+@include mix.down(laptop) {
+  .footer {
+    padding-left: clamp(16px, 4vw, 40px);
+    padding-right: clamp(16px, 4vw, 40px);
+
+    &__column {
+      width: fit-content;
+    }
+  }
+}
+
+@include mix.down(tablet) {
+  .footer {
+    background-image: none;
+
+    &__top {
+      flex-direction: column;
+    }
+
+    &__bottom {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+}
